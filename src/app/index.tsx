@@ -1,3 +1,4 @@
+// app/index.tsx
 import TopicCard from "@/components/TopicCard";
 import { useState } from "react";
 import {
@@ -27,7 +28,6 @@ const index = () => {
   const [text, setText] = useState("");
   const [inputText, setInputText] = useState("");
 
-  // Sample data for FlatList
   const sampleData = [
     "🍎 Apple",
     "🍌 Banana",
@@ -58,62 +58,45 @@ const index = () => {
     cardBg: isDarkMode ? "#1e1e1e" : "#ffffff",
   };
 
-  // FlatList data render component (separate function to avoid nesting warning)
   const renderFlatListItem = ({ item }: { item: string }) => (
-    <View
-      style={{
-        flex: 1,
-        padding: 10,
-        backgroundColor: colors.cardBg,
-        borderRadius: 4,
-        marginVertical: 2,
-        marginHorizontal: 4,
-      }}
-    >
+    <View style={[styles.flatListItem, { backgroundColor: colors.cardBg }]}>
       <Text style={{ color: colors.text }}>{item}</Text>
     </View>
   );
 
+  const renderColorBox = (
+    color: string,
+    width: number = 40,
+    height: number = 40,
+  ) => <View style={{ width, height, backgroundColor: color }} />;
+
   return (
     <KeyboardAvoidingView
-      style={{ flex: 1, backgroundColor: colors.background }}
+      style={[styles.container, { backgroundColor: colors.background }]}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
-      keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 0}
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View
-          style={{
-            flex: 1,
-            backgroundColor: colors.background,
-            paddingTop: insets.top,
-            paddingBottom: insets.bottom,
-            paddingLeft: insets.left,
-            paddingRight: insets.right,
-          }}
+          style={[
+            styles.safeArea,
+            {
+              backgroundColor: colors.background,
+              paddingTop: insets.top,
+              paddingBottom: insets.bottom,
+              paddingLeft: insets.left,
+              paddingRight: insets.right,
+            },
+          ]}
         >
           <ScrollView
-            style={{ flex: 1, backgroundColor: colors.background }}
+            style={[styles.scrollView, { backgroundColor: colors.background }]}
             showsVerticalScrollIndicator={false}
             keyboardShouldPersistTaps="handled"
           >
             {/* Header */}
-            <View
-              style={{
-                padding: 20,
-                backgroundColor: colors.headerBg,
-                marginBottom: 12,
-              }}
-            >
-              <Text
-                style={{
-                  fontSize: 24,
-                  fontWeight: "bold",
-                  color: colors.headerText,
-                }}
-              >
-                React Native Learning
-              </Text>
-              <Text style={{ color: colors.subText, marginTop: 4 }}>
+            <View style={[styles.header, { backgroundColor: colors.headerBg }]}>
+              <Text style={styles.headerText}>React Native Learning</Text>
+              <Text style={[styles.subText, { color: colors.subText }]}>
                 {isDarkMode ? "🌙 Dark Mode" : "☀️ Light Mode"}
               </Text>
             </View>
@@ -121,11 +104,11 @@ const index = () => {
             {/* 1. Text Component */}
             <TopicCard title="Text Component" isDarkMode={isDarkMode}>
               <Text style={{ color: colors.text }}>Hello World</Text>
-              <Text style={{ fontWeight: "bold", color: colors.text }}>
+              <Text style={[styles.boldText, { color: colors.text }]}>
                 Bold Text
               </Text>
               <Text
-                style={{ fontStyle: "italic", color: colors.textSecondary }}
+                style={[styles.italicText, { color: colors.textSecondary }]}
               >
                 Italic Text
               </Text>
@@ -144,7 +127,7 @@ const index = () => {
                   style={[styles.viewItem, { backgroundColor: colors.blue }]}
                 />
               </View>
-              <Text style={{ marginTop: 5, color: colors.textSecondary }}>
+              <Text style={[styles.hintText, { color: colors.textSecondary }]}>
                 View is a container
               </Text>
             </TopicCard>
@@ -175,7 +158,7 @@ const index = () => {
                 onPress={() => Alert.alert("Touchable Pressed!")}
                 underlayColor={isDarkMode ? "#1a237e" : "darkblue"}
               >
-                <Text style={{ color: "white" }}>Press Me</Text>
+                <Text style={styles.buttonText}>Press Me</Text>
               </TouchableHighlight>
             </TopicCard>
 
@@ -185,7 +168,7 @@ const index = () => {
                 style={[styles.button, { backgroundColor: colors.buttonGreen }]}
                 onPress={() => Alert.alert("Pressable Pressed!")}
               >
-                <Text style={{ color: "white" }}>Press Me</Text>
+                <Text style={styles.buttonText}>Press Me</Text>
               </Pressable>
             </TopicCard>
 
@@ -200,218 +183,134 @@ const index = () => {
 
             {/* 8. Flex Direction */}
             <TopicCard title="Flex Direction" isDarkMode={isDarkMode}>
-              <Text style={{ color: colors.textSecondary, marginBottom: 8 }}>
+              <Text
+                style={[styles.sectionLabel, { color: colors.textSecondary }]}
+              >
                 flexDirection: row
               </Text>
               <View
-                style={{
-                  flexDirection: "row",
-                  backgroundColor: colors.flatListItem,
-                  padding: 10,
-                  borderRadius: 8,
-                  gap: 5,
-                }}
+                style={[
+                  styles.flexRowContainer,
+                  { backgroundColor: colors.flatListItem },
+                ]}
               >
-                <View
-                  style={{ width: 40, height: 40, backgroundColor: "red" }}
-                />
-                <View
-                  style={{ width: 40, height: 40, backgroundColor: "green" }}
-                />
-                <View
-                  style={{ width: 40, height: 40, backgroundColor: "blue" }}
-                />
+                <View style={[styles.box, { backgroundColor: "red" }]} />
+                <View style={[styles.box, { backgroundColor: "green" }]} />
+                <View style={[styles.box, { backgroundColor: "blue" }]} />
               </View>
 
               <Text
-                style={{
-                  color: colors.textSecondary,
-                  marginTop: 10,
-                  marginBottom: 8,
-                }}
+                style={[styles.sectionLabel, { color: colors.textSecondary }]}
               >
                 flexDirection: column (default)
               </Text>
               <View
-                style={{
-                  flexDirection: "column",
-                  backgroundColor: colors.flatListItem,
-                  padding: 10,
-                  borderRadius: 8,
-                  gap: 5,
-                }}
+                style={[
+                  styles.flexColumnContainer,
+                  { backgroundColor: colors.flatListItem },
+                ]}
               >
-                <View
-                  style={{ width: 40, height: 30, backgroundColor: "red" }}
-                />
-                <View
-                  style={{ width: 40, height: 30, backgroundColor: "green" }}
-                />
-                <View
-                  style={{ width: 40, height: 30, backgroundColor: "blue" }}
-                />
+                <View style={[styles.smallBox, { backgroundColor: "red" }]} />
+                <View style={[styles.smallBox, { backgroundColor: "green" }]} />
+                <View style={[styles.smallBox, { backgroundColor: "blue" }]} />
               </View>
             </TopicCard>
 
             {/* 9. Justify Content */}
             <TopicCard title="Justify Content" isDarkMode={isDarkMode}>
-              <Text style={{ color: colors.textSecondary, marginBottom: 8 }}>
+              <Text
+                style={[styles.sectionLabel, { color: colors.textSecondary }]}
+              >
                 flex-start (default)
               </Text>
               <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "flex-start",
-                  backgroundColor: colors.flatListItem,
-                  padding: 10,
-                  borderRadius: 8,
-                  gap: 5,
-                }}
+                style={[
+                  styles.justifyStart,
+                  { backgroundColor: colors.flatListItem },
+                ]}
               >
-                <View
-                  style={{ width: 30, height: 30, backgroundColor: "red" }}
-                />
-                <View
-                  style={{ width: 30, height: 30, backgroundColor: "green" }}
-                />
-                <View
-                  style={{ width: 30, height: 30, backgroundColor: "blue" }}
-                />
+                {renderColorBox("red", 30, 30)}
+                {renderColorBox("green", 30, 30)}
+                {renderColorBox("blue", 30, 30)}
               </View>
 
               <Text
-                style={{
-                  color: colors.textSecondary,
-                  marginTop: 10,
-                  marginBottom: 8,
-                }}
+                style={[styles.sectionLabel, { color: colors.textSecondary }]}
               >
                 center
               </Text>
               <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "center",
-                  backgroundColor: colors.flatListItem,
-                  padding: 10,
-                  borderRadius: 8,
-                  gap: 5,
-                }}
+                style={[
+                  styles.justifyCenter,
+                  { backgroundColor: colors.flatListItem },
+                ]}
               >
-                <View
-                  style={{ width: 30, height: 30, backgroundColor: "red" }}
-                />
-                <View
-                  style={{ width: 30, height: 30, backgroundColor: "green" }}
-                />
-                <View
-                  style={{ width: 30, height: 30, backgroundColor: "blue" }}
-                />
+                {renderColorBox("red", 30, 30)}
+                {renderColorBox("green", 30, 30)}
+                {renderColorBox("blue", 30, 30)}
               </View>
 
               <Text
-                style={{
-                  color: colors.textSecondary,
-                  marginTop: 10,
-                  marginBottom: 8,
-                }}
+                style={[styles.sectionLabel, { color: colors.textSecondary }]}
               >
                 space-between
               </Text>
               <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                  backgroundColor: colors.flatListItem,
-                  padding: 10,
-                  borderRadius: 8,
-                }}
+                style={[
+                  styles.justifyBetween,
+                  { backgroundColor: colors.flatListItem },
+                ]}
               >
-                <View
-                  style={{ width: 30, height: 30, backgroundColor: "red" }}
-                />
-                <View
-                  style={{ width: 30, height: 30, backgroundColor: "green" }}
-                />
-                <View
-                  style={{ width: 30, height: 30, backgroundColor: "blue" }}
-                />
+                {renderColorBox("red", 30, 30)}
+                {renderColorBox("green", 30, 30)}
+                {renderColorBox("blue", 30, 30)}
               </View>
 
               <Text
-                style={{
-                  color: colors.textSecondary,
-                  marginTop: 10,
-                  marginBottom: 8,
-                }}
+                style={[styles.sectionLabel, { color: colors.textSecondary }]}
               >
                 space-around
               </Text>
               <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "space-around",
-                  backgroundColor: colors.flatListItem,
-                  padding: 10,
-                  borderRadius: 8,
-                }}
+                style={[
+                  styles.justifyAround,
+                  { backgroundColor: colors.flatListItem },
+                ]}
               >
-                <View
-                  style={{ width: 30, height: 30, backgroundColor: "red" }}
-                />
-                <View
-                  style={{ width: 30, height: 30, backgroundColor: "green" }}
-                />
-                <View
-                  style={{ width: 30, height: 30, backgroundColor: "blue" }}
-                />
+                {renderColorBox("red", 30, 30)}
+                {renderColorBox("green", 30, 30)}
+                {renderColorBox("blue", 30, 30)}
               </View>
 
               <Text
-                style={{
-                  color: colors.textSecondary,
-                  marginTop: 10,
-                  marginBottom: 8,
-                }}
+                style={[styles.sectionLabel, { color: colors.textSecondary }]}
               >
                 space-evenly
               </Text>
               <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "space-evenly",
-                  backgroundColor: colors.flatListItem,
-                  padding: 10,
-                  borderRadius: 8,
-                }}
+                style={[
+                  styles.justifyEvenly,
+                  { backgroundColor: colors.flatListItem },
+                ]}
               >
-                <View
-                  style={{ width: 30, height: 30, backgroundColor: "red" }}
-                />
-                <View
-                  style={{ width: 30, height: 30, backgroundColor: "green" }}
-                />
-                <View
-                  style={{ width: 30, height: 30, backgroundColor: "blue" }}
-                />
+                {renderColorBox("red", 30, 30)}
+                {renderColorBox("green", 30, 30)}
+                {renderColorBox("blue", 30, 30)}
               </View>
             </TopicCard>
 
             {/* 10. Align Items */}
             <TopicCard title="Align Items" isDarkMode={isDarkMode}>
-              <Text style={{ color: colors.textSecondary, marginBottom: 8 }}>
+              <Text
+                style={[styles.sectionLabel, { color: colors.textSecondary }]}
+              >
                 stretch (default)
               </Text>
               <View
-                style={{
-                  flexDirection: "row",
-                  alignItems: "stretch",
-                  backgroundColor: colors.flatListItem,
-                  padding: 10,
-                  borderRadius: 8,
-                  height: 80,
-                  gap: 5,
-                }}
+                style={[
+                  styles.alignStretch,
+                  { backgroundColor: colors.flatListItem },
+                ]}
               >
                 <View style={{ width: 40, backgroundColor: "red" }} />
                 <View style={{ width: 40, backgroundColor: "green" }} />
@@ -419,24 +318,15 @@ const index = () => {
               </View>
 
               <Text
-                style={{
-                  color: colors.textSecondary,
-                  marginTop: 10,
-                  marginBottom: 8,
-                }}
+                style={[styles.sectionLabel, { color: colors.textSecondary }]}
               >
                 center
               </Text>
               <View
-                style={{
-                  flexDirection: "row",
-                  alignItems: "center",
-                  backgroundColor: colors.flatListItem,
-                  padding: 10,
-                  borderRadius: 8,
-                  height: 80,
-                  gap: 5,
-                }}
+                style={[
+                  styles.alignCenter,
+                  { backgroundColor: colors.flatListItem },
+                ]}
               >
                 <View
                   style={{ width: 40, height: 40, backgroundColor: "red" }}
@@ -450,24 +340,15 @@ const index = () => {
               </View>
 
               <Text
-                style={{
-                  color: colors.textSecondary,
-                  marginTop: 10,
-                  marginBottom: 8,
-                }}
+                style={[styles.sectionLabel, { color: colors.textSecondary }]}
               >
                 flex-end
               </Text>
               <View
-                style={{
-                  flexDirection: "row",
-                  alignItems: "flex-end",
-                  backgroundColor: colors.flatListItem,
-                  padding: 10,
-                  borderRadius: 8,
-                  height: 80,
-                  gap: 5,
-                }}
+                style={[
+                  styles.alignEnd,
+                  { backgroundColor: colors.flatListItem },
+                ]}
               >
                 <View
                   style={{ width: 40, height: 40, backgroundColor: "red" }}
@@ -483,76 +364,52 @@ const index = () => {
 
             {/* 11. Align Self */}
             <TopicCard title="Align Self" isDarkMode={isDarkMode}>
-              <Text style={{ color: colors.textSecondary, marginBottom: 8 }}>
+              <Text
+                style={[styles.sectionLabel, { color: colors.textSecondary }]}
+              >
                 Individual item alignment
               </Text>
               <View
-                style={{
-                  flexDirection: "row",
-                  backgroundColor: colors.flatListItem,
-                  padding: 10,
-                  borderRadius: 8,
-                  height: 100,
-                  gap: 5,
-                }}
+                style={[
+                  styles.alignSelfContainer,
+                  { backgroundColor: colors.flatListItem },
+                ]}
               >
                 <View
                   style={{ width: 40, height: 40, backgroundColor: "red" }}
                 />
                 <View
-                  style={{
-                    width: 40,
-                    height: 30,
-                    backgroundColor: "green",
-                    alignSelf: "center",
-                  }}
+                  style={[styles.alignSelfCenter, { backgroundColor: "green" }]}
                 />
                 <View
-                  style={{
-                    width: 40,
-                    height: 50,
-                    backgroundColor: "blue",
-                    alignSelf: "flex-end",
-                  }}
+                  style={[styles.alignSelfEnd, { backgroundColor: "blue" }]}
                 />
               </View>
-              <Text
-                style={{
-                  color: colors.textSecondary,
-                  marginTop: 5,
-                  fontSize: 12,
-                }}
-              >
-                🟢 Green: alignSelf: center | 🔵 Blue: alignSelf: flex-end
+              <Text style={[styles.tipText, { color: colors.textSecondary }]}>
+                🟢 Green: center | 🔵 Blue: flex-end
               </Text>
             </TopicCard>
 
             {/* 12. Align Content */}
             <TopicCard title="Align Content" isDarkMode={isDarkMode}>
-              <Text style={{ color: colors.textSecondary, marginBottom: 8 }}>
+              <Text
+                style={[styles.sectionLabel, { color: colors.textSecondary }]}
+              >
                 alignContent: center (multiple rows)
               </Text>
               <View
-                style={{
-                  flexDirection: "row",
-                  flexWrap: "wrap",
-                  alignContent: "center",
-                  backgroundColor: colors.flatListItem,
-                  padding: 10,
-                  borderRadius: 8,
-                  height: 150,
-                  gap: 5,
-                }}
+                style={[
+                  styles.alignContentContainer,
+                  { backgroundColor: colors.flatListItem },
+                ]}
               >
                 {[1, 2, 3, 4, 5, 6].map((item) => (
                   <View
                     key={item}
-                    style={{
-                      width: 40,
-                      height: 30,
-                      backgroundColor: `hsl(${item * 60}, 70%, 50%)`,
-                      borderRadius: 4,
-                    }}
+                    style={[
+                      styles.alignContentItem,
+                      { backgroundColor: `hsl(${item * 60}, 70%, 50%)` },
+                    ]}
                   />
                 ))}
               </View>
@@ -560,77 +417,53 @@ const index = () => {
 
             {/* 13. Flex Wrap */}
             <TopicCard title="Flex Wrap" isDarkMode={isDarkMode}>
-              <Text style={{ color: colors.textSecondary, marginBottom: 8 }}>
+              <Text
+                style={[styles.sectionLabel, { color: colors.textSecondary }]}
+              >
                 flexWrap: wrap
               </Text>
               <View
-                style={{
-                  flexDirection: "row",
-                  flexWrap: "wrap",
-                  backgroundColor: colors.flatListItem,
-                  padding: 10,
-                  borderRadius: 8,
-                  gap: 8,
-                }}
+                style={[
+                  styles.flexWrapContainer,
+                  { backgroundColor: colors.flatListItem },
+                ]}
               >
                 {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => (
                   <View
                     key={item}
-                    style={{
-                      width: 50,
-                      height: 35,
-                      backgroundColor: `hsl(${item * 36}, 70%, 50%)`,
-                      borderRadius: 4,
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
+                    style={[
+                      styles.wrapItem,
+                      { backgroundColor: `hsl(${item * 36}, 70%, 50%)` },
+                    ]}
                   >
-                    <Text style={{ color: "white", fontSize: 10 }}>{item}</Text>
+                    <Text style={styles.wrapItemText}>{item}</Text>
                   </View>
                 ))}
               </View>
-              <Text
-                style={{
-                  color: colors.textSecondary,
-                  marginTop: 5,
-                  fontSize: 12,
-                }}
-              >
+              <Text style={[styles.tipText, { color: colors.textSecondary }]}>
                 Items wrap to next line when space runs out
               </Text>
 
               <Text
-                style={{
-                  color: colors.textSecondary,
-                  marginTop: 10,
-                  marginBottom: 8,
-                }}
+                style={[styles.sectionLabel, { color: colors.textSecondary }]}
               >
                 flexWrap: nowrap (default)
               </Text>
               <View
-                style={{
-                  flexDirection: "row",
-                  flexWrap: "nowrap",
-                  backgroundColor: colors.flatListItem,
-                  padding: 10,
-                  borderRadius: 8,
-                  gap: 5,
-                }}
+                style={[
+                  styles.flexNoWrapContainer,
+                  { backgroundColor: colors.flatListItem },
+                ]}
               >
                 {[1, 2, 3, 4, 5, 6].map((item) => (
                   <View
                     key={item}
-                    style={{
-                      width: 60,
-                      height: 30,
-                      backgroundColor: `hsl(${item * 60}, 70%, 50%)`,
-                      borderRadius: 4,
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
+                    style={[
+                      styles.nowrapItem,
+                      { backgroundColor: `hsl(${item * 60}, 70%, 50%)` },
+                    ]}
                   >
-                    <Text style={{ color: "white", fontSize: 10 }}>{item}</Text>
+                    <Text style={styles.wrapItemText}>{item}</Text>
                   </View>
                 ))}
               </View>
@@ -638,185 +471,131 @@ const index = () => {
 
             {/* 14. Flex Grow */}
             <TopicCard title="Flex Grow" isDarkMode={isDarkMode}>
-              <Text style={{ color: colors.textSecondary, marginBottom: 8 }}>
+              <Text
+                style={[styles.sectionLabel, { color: colors.textSecondary }]}
+              >
                 flexGrow: 1 (item takes available space)
               </Text>
               <View
-                style={{
-                  flexDirection: "row",
-                  backgroundColor: colors.flatListItem,
-                  padding: 10,
-                  borderRadius: 8,
-                  height: 60,
-                  gap: 5,
-                }}
+                style={[
+                  styles.flexGrowContainer,
+                  { backgroundColor: colors.flatListItem },
+                ]}
               >
                 <View
-                  style={{
-                    width: 40,
-                    backgroundColor: "red",
-                    flexGrow: 0,
-                  }}
+                  style={[styles.flexGrowZero, { backgroundColor: "red" }]}
                 />
                 <View
-                  style={{
-                    backgroundColor: "green",
-                    flexGrow: 1,
-                  }}
+                  style={[styles.flexGrowOne, { backgroundColor: "green" }]}
                 />
                 <View
-                  style={{
-                    width: 40,
-                    backgroundColor: "blue",
-                    flexGrow: 0,
-                  }}
+                  style={[styles.flexGrowZero, { backgroundColor: "blue" }]}
                 />
               </View>
-              <Text
-                style={{
-                  color: colors.textSecondary,
-                  marginTop: 5,
-                  fontSize: 12,
-                }}
-              >
+              <Text style={[styles.tipText, { color: colors.textSecondary }]}>
                 🟢 Green grows to fill available space
               </Text>
 
               <Text
-                style={{
-                  color: colors.textSecondary,
-                  marginTop: 10,
-                  marginBottom: 8,
-                }}
+                style={[styles.sectionLabel, { color: colors.textSecondary }]}
               >
                 flexGrow: 2 vs flexGrow: 1
               </Text>
               <View
-                style={{
-                  flexDirection: "row",
-                  backgroundColor: colors.flatListItem,
-                  padding: 10,
-                  borderRadius: 8,
-                  height: 60,
-                  gap: 5,
-                }}
+                style={[
+                  styles.flexGrowContainer,
+                  { backgroundColor: colors.flatListItem },
+                ]}
               >
                 <View
-                  style={{
-                    backgroundColor: "red",
-                    flexGrow: 1,
-                  }}
+                  style={[styles.flexGrowOne, { backgroundColor: "red" }]}
                 />
                 <View
-                  style={{
-                    backgroundColor: "green",
-                    flexGrow: 2,
-                  }}
+                  style={[styles.flexGrowTwo, { backgroundColor: "green" }]}
                 />
                 <View
-                  style={{
-                    backgroundColor: "blue",
-                    flexGrow: 1,
-                  }}
+                  style={[styles.flexGrowOne, { backgroundColor: "blue" }]}
                 />
               </View>
-              <Text
-                style={{
-                  color: colors.textSecondary,
-                  marginTop: 5,
-                  fontSize: 12,
-                }}
-              >
+              <Text style={[styles.tipText, { color: colors.textSecondary }]}>
                 🟢 Green takes 2x space than others
               </Text>
             </TopicCard>
 
-            {/* 14. FlatList - Fixed with proper implementation */}
+            {/* 15. FlatList */}
             <TopicCard title="FlatList (Grid View)" isDarkMode={isDarkMode}>
-              <Text style={{ color: colors.textSecondary, marginBottom: 8 }}>
+              <Text
+                style={[styles.sectionLabel, { color: colors.textSecondary }]}
+              >
                 📱 Better performance than ScrollView
               </Text>
               <View
-                style={{
-                  backgroundColor: colors.flatListItem,
-                  borderRadius: 8,
-                  padding: 4,
-                  maxHeight: 200,
-                }}
+                style={[
+                  styles.flatListWrapper,
+                  { backgroundColor: colors.flatListItem },
+                ]}
               >
                 <FlatList
                   data={sampleData}
                   renderItem={renderFlatListItem}
                   keyExtractor={(item, index) => index.toString()}
-                  ItemSeparatorComponent={() => <View style={{ height: 4 }} />}
+                  ItemSeparatorComponent={() => (
+                    <View style={styles.separator} />
+                  )}
                   numColumns={2}
-                  columnWrapperStyle={{
-                    justifyContent: "space-between",
-                    gap: 4,
-                  }}
+                  columnWrapperStyle={styles.columnWrapper}
                   showsVerticalScrollIndicator={false}
-                  scrollEnabled={false} // Disable FlatList scroll to prevent nesting warning
+                  scrollEnabled={false}
                 />
               </View>
-              <Text
-                style={{
-                  color: colors.textSecondary,
-                  marginTop: 8,
-                  fontSize: 12,
-                }}
-              >
+              <Text style={[styles.tipText, { color: colors.textSecondary }]}>
                 💡 Tip: numColumns creates grid layout
               </Text>
             </TopicCard>
 
-            {/* 15. TextInput - Fixed with Keyboard handling */}
+            {/* 16. TextInput */}
             <TopicCard title="TextInput" isDarkMode={isDarkMode}>
-              <Text style={{ color: colors.textSecondary, marginBottom: 8 }}>
+              <Text
+                style={[styles.sectionLabel, { color: colors.textSecondary }]}
+              >
                 ✏️ Single line input
               </Text>
               <TextInput
                 placeholder="Type something..."
                 placeholderTextColor={colors.textSecondary}
-                style={{
-                  borderWidth: 1,
-                  borderColor: colors.inputBorder,
-                  borderRadius: 8,
-                  padding: 10,
-                  backgroundColor: colors.inputBg,
-                  color: colors.inputText,
-                  marginBottom: 8,
-                }}
+                style={[
+                  styles.input,
+                  {
+                    borderColor: colors.inputBorder,
+                    backgroundColor: colors.inputBg,
+                    color: colors.inputText,
+                  },
+                ]}
                 value={text}
                 onChangeText={setText}
                 returnKeyType="done"
                 onSubmitEditing={Keyboard.dismiss}
               />
-              {text ? (
+              {text && (
                 <Text style={{ color: colors.text }}>You typed: {text}</Text>
-              ) : null}
+              )}
 
               <Text
-                style={{
-                  color: colors.textSecondary,
-                  marginTop: 12,
-                  marginBottom: 8,
-                }}
+                style={[styles.sectionLabel, { color: colors.textSecondary }]}
               >
                 📝 Multi-line input
               </Text>
               <TextInput
                 placeholder="Write a long message..."
                 placeholderTextColor={colors.textSecondary}
-                style={{
-                  borderWidth: 1,
-                  borderColor: colors.inputBorder,
-                  borderRadius: 8,
-                  padding: 10,
-                  backgroundColor: colors.inputBg,
-                  color: colors.inputText,
-                  minHeight: 80,
-                  textAlignVertical: "top",
-                }}
+                style={[
+                  styles.multilineInput,
+                  {
+                    borderColor: colors.inputBorder,
+                    backgroundColor: colors.inputBg,
+                    color: colors.inputText,
+                  },
+                ]}
                 value={inputText}
                 onChangeText={setInputText}
                 multiline
@@ -825,27 +604,64 @@ const index = () => {
                 returnKeyType="done"
                 onSubmitEditing={Keyboard.dismiss}
               />
-              <Text
-                style={{
-                  color: colors.textSecondary,
-                  marginTop: 8,
-                  fontSize: 12,
-                }}
-              >
+              <Text style={[styles.tipText, { color: colors.textSecondary }]}>
                 🔑 Keyboard types: default, email, numeric, phone-pad
               </Text>
             </TopicCard>
 
-            {/* Extra space at bottom */}
-            <View style={{ height: 40 }} />
+            <View style={styles.bottomSpacing} />
           </ScrollView>
         </View>
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
   );
-};;
+};
 
 const styles = StyleSheet.create({
+  // Container Styles
+  container: {
+    flex: 1,
+  },
+  safeArea: {
+    flex: 1,
+  },
+  scrollView: {
+    flex: 1,
+  },
+
+  // Header Styles
+  header: {
+    padding: 20,
+    marginBottom: 12,
+  },
+  headerText: {
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "#ffffff",
+  },
+  subText: {
+    marginTop: 4,
+  },
+
+  // Text Styles
+  boldText: {
+    fontWeight: "bold",
+  },
+  italicText: {
+    fontStyle: "italic",
+  },
+  hintText: {
+    marginTop: 5,
+  },
+  sectionLabel: {
+    marginBottom: 8,
+  },
+  tipText: {
+    marginTop: 5,
+    fontSize: 12,
+  },
+
+  // View Component Styles
   viewContainer: {
     flexDirection: "row",
     gap: 5,
@@ -854,14 +670,232 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
   },
+
+  // Image Styles
   image: {
     width: 100,
     height: 100,
     borderRadius: 8,
   },
+
+  // Button Styles
   button: {
     padding: 10,
     borderRadius: 5,
+  },
+  buttonText: {
+    color: "white",
+  },
+
+  // Flex Layout Styles
+  flexRowContainer: {
+    flexDirection: "row",
+    padding: 10,
+    borderRadius: 8,
+    gap: 5,
+  },
+  flexColumnContainer: {
+    flexDirection: "column",
+    padding: 10,
+    borderRadius: 8,
+    gap: 5,
+  },
+  box: {
+    width: 40,
+    height: 40,
+  },
+  smallBox: {
+    width: 40,
+    height: 30,
+  },
+
+  // Justify Content Styles
+  justifyStart: {
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    padding: 10,
+    borderRadius: 8,
+    gap: 5,
+  },
+  justifyCenter: {
+    flexDirection: "row",
+    justifyContent: "center",
+    padding: 10,
+    borderRadius: 8,
+    gap: 5,
+  },
+  justifyBetween: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    padding: 10,
+    borderRadius: 8,
+  },
+  justifyAround: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    padding: 10,
+    borderRadius: 8,
+  },
+  justifyEvenly: {
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    padding: 10,
+    borderRadius: 8,
+  },
+
+  // Align Items Styles
+  alignStretch: {
+    flexDirection: "row",
+    alignItems: "stretch",
+    padding: 10,
+    borderRadius: 8,
+    height: 80,
+    gap: 5,
+  },
+  alignCenter: {
+    flexDirection: "row",
+    alignItems: "center",
+    padding: 10,
+    borderRadius: 8,
+    height: 80,
+    gap: 5,
+  },
+  alignEnd: {
+    flexDirection: "row",
+    alignItems: "flex-end",
+    padding: 10,
+    borderRadius: 8,
+    height: 80,
+    gap: 5,
+  },
+
+  // Align Self Styles
+  alignSelfContainer: {
+    flexDirection: "row",
+    padding: 10,
+    borderRadius: 8,
+    height: 100,
+    gap: 5,
+  },
+  alignSelfCenter: {
+    width: 40,
+    height: 30,
+    alignSelf: "center",
+  },
+  alignSelfEnd: {
+    width: 40,
+    height: 50,
+    alignSelf: "flex-end",
+  },
+
+  // Align Content Styles
+  alignContentContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    alignContent: "center",
+    padding: 10,
+    borderRadius: 8,
+    height: 150,
+    gap: 5,
+  },
+  alignContentItem: {
+    width: 40,
+    height: 30,
+    borderRadius: 4,
+  },
+
+  // Flex Wrap Styles
+  flexWrapContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    padding: 10,
+    borderRadius: 8,
+    gap: 8,
+  },
+  wrapItem: {
+    width: 50,
+    height: 35,
+    borderRadius: 4,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  wrapItemText: {
+    color: "white",
+    fontSize: 10,
+  },
+  flexNoWrapContainer: {
+    flexDirection: "row",
+    flexWrap: "nowrap",
+    padding: 10,
+    borderRadius: 8,
+    gap: 5,
+  },
+  nowrapItem: {
+    width: 60,
+    height: 30,
+    borderRadius: 4,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  // Flex Grow Styles
+  flexGrowContainer: {
+    flexDirection: "row",
+    padding: 10,
+    borderRadius: 8,
+    height: 60,
+    gap: 5,
+  },
+  flexGrowZero: {
+    width: 40,
+    flexGrow: 0,
+  },
+  flexGrowOne: {
+    flexGrow: 1,
+  },
+  flexGrowTwo: {
+    flexGrow: 2,
+  },
+
+  // FlatList Styles
+  flatListWrapper: {
+    borderRadius: 8,
+    padding: 4,
+    maxHeight: 200,
+  },
+  flatListItem: {
+    flex: 1,
+    padding: 10,
+    borderRadius: 4,
+    marginVertical: 2,
+    marginHorizontal: 4,
+  },
+  separator: {
+    height: 4,
+  },
+  columnWrapper: {
+    justifyContent: "space-between",
+    gap: 4,
+  },
+
+  // TextInput Styles
+  input: {
+    borderWidth: 1,
+    borderRadius: 8,
+    padding: 10,
+    marginBottom: 8,
+  },
+  multilineInput: {
+    borderWidth: 1,
+    borderRadius: 8,
+    padding: 10,
+    minHeight: 80,
+    textAlignVertical: "top",
+  },
+
+  // Spacing
+  bottomSpacing: {
+    height: 40,
   },
 });
 
