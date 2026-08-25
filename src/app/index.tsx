@@ -1,4 +1,11 @@
-import { Button, Image, StyleSheet, Text, View } from "react-native";
+import {
+  Alert,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableHighlight,
+  View,
+} from "react-native";
 
 const index = () => {
   return (
@@ -12,7 +19,16 @@ const index = () => {
         style={{ width: 200, height: 200 }}
       />
 
-      <Button title="Press Me" />
+      {/* <Button title="Press Me" /> */}
+
+      <TouchableHighlight
+        style={{ backgroundColor: "green", padding: 10, borderRadius: 5 }}
+        onPress={() => {
+          Alert.alert("button pressed!!!");
+        }}
+      >
+        <Text>Press Me</Text>
+      </TouchableHighlight>
     </View>
   );
 };
