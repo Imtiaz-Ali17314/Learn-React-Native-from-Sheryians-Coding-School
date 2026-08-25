@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Button, Image, StyleSheet, Text, View } from "react-native";
 
 const index = () => {
   return (
@@ -11,6 +11,8 @@ const index = () => {
         }}
         style={{ width: 200, height: 200 }}
       />
+
+      <Button title="Press Me" />
     </View>
   );
 };
