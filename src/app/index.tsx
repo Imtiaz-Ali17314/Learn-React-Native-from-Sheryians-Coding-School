@@ -1,6 +1,8 @@
 import {
   Alert,
+  Button,
   Image,
+  Pressable,
   StyleSheet,
   Text,
   TouchableHighlight,
@@ -19,16 +21,32 @@ const index = () => {
         style={{ width: 200, height: 200 }}
       />
 
-      {/* <Button title="Press Me" /> */}
+      <View style={{ marginVertical: 10, gap: 10 }}>
+        <Button
+          title="I am a Button"
+          onPress={() => {
+            Alert.alert("Button Pressed!!!");
+          }}
+        />
 
-      <TouchableHighlight
-        style={{ backgroundColor: "green", padding: 10, borderRadius: 5 }}
-        onPress={() => {
-          Alert.alert("button pressed!!!");
-        }}
-      >
-        <Text>Press Me</Text>
-      </TouchableHighlight>
+        <TouchableHighlight
+          style={{ backgroundColor: "green", padding: 10, borderRadius: 5 }}
+          onPress={() => {
+            Alert.alert("Touchable Pressed!!!");
+          }}
+        >
+          <Text>I am a Touchable</Text>
+        </TouchableHighlight>
+
+        <Pressable
+          style={{ backgroundColor: "yellow", padding: 10, borderRadius: 5 }}
+          onPress={() => {
+            Alert.alert("Pressable Pressed!!!");
+          }}
+        >
+          <Text>I am a Pressable</Text>
+        </Pressable>
+      </View>
     </View>
   );
 };
