@@ -5,6 +5,7 @@ import {
   Image,
   Pressable,
   ScrollView,
+  StyleSheet,
   Text,
   TouchableHighlight,
   View,
@@ -25,21 +26,10 @@ const index = () => {
         paddingRight: insets.right,
       }}
     >
-      <ScrollView
-        style={{ flex: 1, backgroundColor: "#f5f5f5" }}
-        showsVerticalScrollIndicator={false}
-      >
+      <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
         {/* Header */}
-        <View
-          style={{
-            padding: 20,
-            backgroundColor: "#6200ee",
-            marginBottom: 12,
-          }}
-        >
-          <Text style={{ fontSize: 24, fontWeight: "bold", color: "#fff" }}>
-            React Native Learning
-          </Text>
+        <View style={styles.headerContainer}>
+          <Text style={styles.headerText}>React Native Learning</Text>
         </View>
 
         {/* 1. Text Component */}
@@ -51,10 +41,10 @@ const index = () => {
 
         {/* 2. View Component */}
         <TopicCard title="View Component">
-          <View style={{ flexDirection: "row", gap: 5 }}>
-            <View style={{ width: 50, height: 50, backgroundColor: "red" }} />
-            <View style={{ width: 50, height: 50, backgroundColor: "green" }} />
-            <View style={{ width: 50, height: 50, backgroundColor: "blue" }} />
+          <View style={styles.viewContainer}>
+            <View style={[styles.viewItem, { backgroundColor: "red" }]} />
+            <View style={[styles.viewItem, { backgroundColor: "green" }]} />
+            <View style={[styles.viewItem, { backgroundColor: "blue" }]} />
           </View>
           <Text style={{ marginTop: 5 }}>View is a container</Text>
         </TopicCard>
@@ -65,7 +55,7 @@ const index = () => {
             source={{
               uri: "https://images.unsplash.com/photo-1519086588705-c935fdedcc14?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3MDM0MTR8MHwxfHNlYXJjaHwyfHxhZXN0aGV0aWMlMjB3b3Jrc3BhY2V8ZW58MHx8fHwxNzg3NjUwNzI5fDA&ixlib=rb-4.1.0&q=80&w=1080",
             }}
-            style={{ width: 100, height: 100, borderRadius: 8 }}
+            style={styles.image}
           />
         </TopicCard>
 
@@ -80,7 +70,7 @@ const index = () => {
         {/* 5. Touchable Component */}
         <TopicCard title="Touchable Component">
           <TouchableHighlight
-            style={{ backgroundColor: "blue", padding: 10, borderRadius: 5 }}
+            style={[styles.button, { backgroundColor: "blue" }]}
             onPress={() => Alert.alert("Touchable Pressed!")}
             underlayColor="darkblue"
           >
@@ -91,7 +81,7 @@ const index = () => {
         {/* 6. Pressable Component */}
         <TopicCard title="Pressable Component">
           <Pressable
-            style={{ backgroundColor: "green", padding: 10, borderRadius: 5 }}
+            style={[styles.button, { backgroundColor: "green" }]}
             onPress={() => Alert.alert("Pressable Pressed!")}
           >
             <Text style={{ color: "white" }}>Press Me</Text>
@@ -110,4 +100,37 @@ const index = () => {
   );
 };
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#f5f5f5",
+  },
+  headerContainer: {
+    padding: 20,
+    backgroundColor: "#6200ee",
+    marginBottom: 12,
+  },
+  headerText: {
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "#fff",
+  },
+  viewContainer: {
+    flexDirection: "row",
+    gap: 5,
+  },
+  viewItem: {
+    width: 50,
+    height: 50,
+  },
+  image: {
+    width: 100,
+    height: 100,
+    borderRadius: 8,
+  },
+  button: {
+    padding: 10,
+    borderRadius: 5,
+  },
+});
 export default index;
