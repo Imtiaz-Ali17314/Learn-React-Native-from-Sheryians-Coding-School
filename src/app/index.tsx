@@ -4,6 +4,7 @@ import {
   Button,
   Image,
   Pressable,
+  ScrollView,
   Text,
   TouchableHighlight,
   View,
@@ -11,7 +12,7 @@ import {
 
 const index = () => {
   return (
-    <View style={{ flex: 1, backgroundColor: "#f5f5f5" }}>
+    <ScrollView style={{ flex: 1, backgroundColor: "#c2bfbf" }}>
       {/* Header */}
       <View
         style={{
@@ -26,14 +27,14 @@ const index = () => {
       </View>
 
       {/* 1. Text Component */}
-      <TopicCard title="📝 Text Component">
+      <TopicCard title="Text Component">
         <Text>Hello World</Text>
         <Text style={{ fontWeight: "bold" }}>Bold Text</Text>
         <Text style={{ fontStyle: "italic" }}>Italic Text</Text>
       </TopicCard>
 
       {/* 2. View Component */}
-      <TopicCard title="📦 View Component">
+      <TopicCard title="View Component">
         <View style={{ flexDirection: "row", gap: 5 }}>
           <View style={{ width: 50, height: 50, backgroundColor: "red" }} />
           <View style={{ width: 50, height: 50, backgroundColor: "green" }} />
@@ -43,7 +44,7 @@ const index = () => {
       </TopicCard>
 
       {/* 3. Image Component */}
-      <TopicCard title="🖼️ Image Component">
+      <TopicCard title="Image Component">
         <Image
           source={{
             uri: "https://images.unsplash.com/photo-1519086588705-c935fdedcc14?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3MDM0MTR8MHwxfHNlYXJjaHwyfHxhZXN0aGV0aWMlMjB3b3Jrc3BhY2V8ZW58MHx8fHwxNzg3NjUwNzI5fDA&ixlib=rb-4.1.0&q=80&w=1080",
@@ -53,15 +54,15 @@ const index = () => {
       </TopicCard>
 
       {/* 4. Button Component */}
-      <TopicCard title="🔘 Button Component">
+      <TopicCard title="Button Component">
         <Button
           title="Click Me"
           onPress={() => Alert.alert("Button Pressed!")}
         />
       </TopicCard>
 
-      {/* 5. TouchableHighlight Component */}
-      <TopicCard title="✨ TouchableHighlight">
+      {/* 5. Touchable Component */}
+      <TopicCard title="Touchable Component">
         <TouchableHighlight
           style={{ backgroundColor: "blue", padding: 10, borderRadius: 5 }}
           onPress={() => Alert.alert("Touchable Pressed!")}
@@ -72,7 +73,7 @@ const index = () => {
       </TopicCard>
 
       {/* 6. Pressable Component */}
-      <TopicCard title="👆 Pressable Component">
+      <TopicCard title="Pressable Component">
         <Pressable
           style={{ backgroundColor: "green", padding: 10, borderRadius: 5 }}
           onPress={() => Alert.alert("Pressable Pressed!")}
@@ -82,13 +83,13 @@ const index = () => {
       </TopicCard>
 
       {/* 7. Alert API */}
-      <TopicCard title="⚠️ Alert API">
+      <TopicCard title="Alert API">
         <Button
           title="Show Alert"
           onPress={() => Alert.alert("Alert Title", "This is an alert!")}
         />
       </TopicCard>
-    </View>
+    </ScrollView>
   );
 };
 
