@@ -25,7 +25,10 @@ const index = () => {
         paddingRight: insets.right,
       }}
     >
-      <ScrollView style={{ flex: 1, backgroundColor: "#f5f5f5" }}>
+      <ScrollView
+        style={{ flex: 1, backgroundColor: "#f5f5f5" }}
+        showsVerticalScrollIndicator={false}
+      >
         {/* Header */}
         <View
           style={{
