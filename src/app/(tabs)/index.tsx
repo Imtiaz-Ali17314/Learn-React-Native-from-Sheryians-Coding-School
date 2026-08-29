@@ -1,5 +1,6 @@
 import TopicCard from "@/components/TopicCard";
 import { TOPICS } from "@/constants/topics";
+import React from "react";
 import { FlatList, StyleSheet, Text, View, useColorScheme } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -8,13 +9,14 @@ export default function DashboardScreen() {
   const isDark = theme === "dark";
 
   const colors = {
-    bg: isDark ? "#0f0f17" : "#f8fafc",
-    headerBg: isDark ? "#1e1e2d" : "#ffffff",
-    headerBorder: isDark ? "#2d2d3f" : "#e2e8f0",
+    bg: isDark ? "#0a0a12" : "#e2e8f0",
+    headerBg: isDark ? "#1a1a27" : "#ffffff",
+    headerBorder: isDark ? "#4f46e5" : "#2563eb",
     title: isDark ? "#f8fafc" : "#0f172a",
     subText: isDark ? "#94a3b8" : "#64748b",
-    statCard: isDark ? "#1a1a28" : "#eff6ff",
-    statValue: isDark ? "#60a5fa" : "#2563eb",
+    statCard: isDark ? "#242438" : "#eff6ff",
+    statBorder: isDark ? "#4f46e5" : "#93c5fd",
+    statValue: isDark ? "#818cf8" : "#1d4ed8",
     statLabel: isDark ? "#94a3b8" : "#1e40af",
   };
 
@@ -37,7 +39,15 @@ export default function DashboardScreen() {
         </Text>
 
         <View style={styles.statsRow}>
-          <View style={[styles.statBox, { backgroundColor: colors.statCard }]}>
+          <View
+            style={[
+              styles.statBox,
+              {
+                backgroundColor: colors.statCard,
+                borderColor: colors.statBorder,
+              },
+            ]}
+          >
             <Text style={[styles.statNumber, { color: colors.statValue }]}>
               7 / 7
             </Text>
@@ -45,7 +55,16 @@ export default function DashboardScreen() {
               Topics Ready
             </Text>
           </View>
-          <View style={[styles.statBox, { backgroundColor: colors.statCard }]}>
+
+          <View
+            style={[
+              styles.statBox,
+              {
+                backgroundColor: colors.statCard,
+                borderColor: colors.statBorder,
+              },
+            ]}
+          >
             <Text style={[styles.statNumber, { color: colors.statValue }]}>
               100%
             </Text>
@@ -85,16 +104,21 @@ const styles = StyleSheet.create({
   listContent: {
     padding: 16,
     paddingBottom: 32,
-    gap: 20,
   },
   headerSection: {
-    marginBottom: 16,
+    marginBottom: 12,
   },
   welcomeCard: {
     borderRadius: 16,
-    padding: 16,
-    borderWidth: 1,
+    padding: 18,
+    borderWidth: 2,
+    borderStyle: "solid",
     marginBottom: 20,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.12,
+    shadowRadius: 8,
+    elevation: 4,
   },
   welcomeTitle: {
     fontSize: 20,
@@ -114,6 +138,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 12,
     borderRadius: 12,
+    borderWidth: 1.5,
     alignItems: "center",
   },
   statNumber: {
@@ -127,6 +152,7 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 18,
-    fontWeight: "700",
+    fontWeight: "800",
+    marginBottom: 6,
   },
 });

@@ -1,7 +1,7 @@
 import TopicCard from "@/components/TopicCard";
 import { TOPICS } from "@/constants/topics";
 import { TopicCategory } from "@/types";
-import { useState } from "react";
+import React, { useState } from "react";
 import {
   FlatList,
   Pressable,
@@ -31,13 +31,14 @@ export default function ExploreScreen() {
   >("all");
 
   const colors = {
-    bg: isDark ? "#0f0f17" : "#f8fafc",
-    inputBg: isDark ? "#1e1e2d" : "#ffffff",
-    inputBorder: isDark ? "#2d2d3f" : "#cbd5e1",
+    bg: isDark ? "#0a0a12" : "#e2e8f0",
+    inputBg: isDark ? "#1a1a27" : "#ffffff",
+    inputBorder: isDark ? "#4f46e5" : "#2563eb",
     inputText: isDark ? "#ffffff" : "#000000",
     placeholder: isDark ? "#64748b" : "#94a3b8",
-    chipBg: isDark ? "#1a1a28" : "#e2e8f0",
-    chipActiveBg: isDark ? "#2563eb" : "#2563eb",
+    chipBg: isDark ? "#1a1a28" : "#ffffff",
+    chipBorder: isDark ? "#373752" : "#94a3b8",
+    chipActiveBg: "#2563eb",
     chipText: isDark ? "#94a3b8" : "#475569",
     chipActiveText: "#ffffff",
     emptyText: isDark ? "#94a3b8" : "#64748b",
@@ -48,7 +49,7 @@ export default function ExploreScreen() {
       topic.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       topic.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
       topic.keyConcepts.some((c) =>
-        c.toLowerCase().includes(searchQuery.toLowerCase()),
+        c.toLowerCase().includes(searchQuery.toLowerCase())
       );
 
     const matchesCategory =
@@ -95,6 +96,9 @@ export default function ExploreScreen() {
                     backgroundColor: isActive
                       ? colors.chipActiveBg
                       : colors.chipBg,
+                    borderColor: isActive
+                      ? colors.chipActiveBg
+                      : colors.chipBorder,
                   },
                 ]}
               >
@@ -102,7 +106,9 @@ export default function ExploreScreen() {
                   style={[
                     styles.categoryText,
                     {
-                      color: isActive ? colors.chipActiveText : colors.chipText,
+                      color: isActive
+                        ? colors.chipActiveText
+                        : colors.chipText,
                     },
                   ]}
                 >
@@ -145,7 +151,7 @@ const styles = StyleSheet.create({
   searchInput: {
     height: 48,
     borderRadius: 12,
-    borderWidth: 1,
+    borderWidth: 2,
     paddingHorizontal: 16,
     fontSize: 15,
   },
@@ -160,6 +166,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 14,
     paddingVertical: 8,
     borderRadius: 20,
+    borderWidth: 1.5,
   },
   categoryText: {
     fontSize: 13,

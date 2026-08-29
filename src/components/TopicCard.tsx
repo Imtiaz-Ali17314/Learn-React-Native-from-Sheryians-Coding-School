@@ -18,84 +18,90 @@ export const TopicCard: React.FC<TopicCardProps> = ({ topic, isDarkMode }) => {
   const theme = useColorScheme();
   const dark = isDarkMode !== undefined ? isDarkMode : theme === "dark";
 
+  // Dynamic Theme Colors
   const colors = {
     cardBg: dark ? "#1e1e2d" : "#ffffff",
-    border: dark ? "#2d2d3f" : "#e2e8f0",
-    title: dark ? "#f8fafc" : "#0f172a",
-    subtitle: dark ? "#94a3b8" : "#64748b",
+    borderColor: dark ? "#6366f1" : "#2563eb",
+    title: dark ? "#ffffff" : "#0f172a",
+    subtitle: dark ? "#818cf8" : "#1d4ed8",
     description: dark ? "#cbd5e1" : "#334155",
-    badgeBg: dark ? "#1e3a8a" : "#eff6ff",
-    badgeText: dark ? "#93c5fd" : "#1d4ed8",
-    conceptBg: dark ? "#2a2a3c" : "#f1f5f9",
-    conceptText: dark ? "#94a3b8" : "#475569",
-    arrow: dark ? "#60a5fa" : "#2563eb",
+    badgeBg: dark ? "#312e81" : "#dbeafe",
+    badgeText: dark ? "#c7d2fe" : "#1e40af",
+    chipBg: dark ? "#27273a" : "#f1f5f9",
+    chipBorder: dark ? "#373752" : "#cbd5e1",
+    chipText: dark ? "#94a3b8" : "#475569",
+    btnBg: dark ? "#4338ca" : "#2563eb",
+    btnText: "#ffffff",
   };
 
   return (
     <Link href={topic.route as any} asChild>
       <Pressable
         style={({ pressed }) => [
-          styles.card,
+          styles.cardContainer,
           {
             backgroundColor: colors.cardBg,
-            borderColor: colors.border,
-            transform: [{ scale: pressed ? 0.98 : 1 }],
+            borderColor: colors.borderColor,
             opacity: pressed ? 0.9 : 1,
+            transform: [{ scale: pressed ? 0.98 : 1 }],
           },
         ]}
       >
+        {/* Top Row: Icon + Topic Number Title + Badge */}
         <View style={styles.topRow}>
-          <View
-            style={[styles.iconContainer, { backgroundColor: colors.badgeBg }]}
-          >
-            <Text style={styles.icon}>{topic.icon}</Text>
+          <View style={[styles.iconBox, { backgroundColor: colors.badgeBg }]}>
+            <Text style={styles.iconEmoji}>{topic.icon}</Text>
           </View>
-          <View style={styles.headerTitleContainer}>
-            <Text style={[styles.topicNumber, { color: colors.badgeText }]}>
-              Topic #{topic.topicNumber}
+
+          <View style={styles.headerTextGroup}>
+            <Text style={[styles.topicTag, { color: colors.subtitle }]}>
+              TOPIC #{topic.topicNumber}
             </Text>
-            <Text style={[styles.title, { color: colors.title }]}>
+            <Text style={[styles.cardTitle, { color: colors.title }]}>
               {topic.title}
             </Text>
           </View>
-          <View style={styles.arrowContainer}>
-            <Text style={[styles.arrow, { color: colors.arrow }]}>➔</Text>
+
+          <View style={[styles.statusBadge, { backgroundColor: colors.badgeBg }]}>
+            <Text style={[styles.statusText, { color: colors.badgeText }]}>
+              Ready
+            </Text>
           </View>
         </View>
 
-        <Text style={[styles.subtitle, { color: colors.subtitle }]}>
+        {/* Subtitle & Description */}
+        <Text style={[styles.subtitleText, { color: colors.subtitle }]}>
           {topic.subtitle}
         </Text>
-        <Text style={[styles.description, { color: colors.description }]}>
+        <Text style={[styles.descriptionText, { color: colors.description }]}>
           {topic.description}
         </Text>
 
-        <View style={styles.conceptsContainer}>
+        {/* Key Concepts Chips */}
+        <View style={styles.conceptsRow}>
           {topic.keyConcepts.slice(0, 3).map((concept, index) => (
             <View
               key={index}
               style={[
-                styles.conceptChip,
-                { backgroundColor: colors.conceptBg },
+                styles.conceptTag,
+                {
+                  backgroundColor: colors.chipBg,
+                  borderColor: colors.chipBorder,
+                },
               ]}
             >
-              <Text style={[styles.conceptText, { color: colors.conceptText }]}>
+              <Text style={[styles.conceptTagText, { color: colors.chipText }]}>
                 • {concept}
               </Text>
             </View>
           ))}
-          {topic.keyConcepts.length > 3 && (
-            <View
-              style={[
-                styles.conceptChip,
-                { backgroundColor: colors.conceptBg },
-              ]}
-            >
-              <Text style={[styles.conceptText, { color: colors.conceptText }]}>
-                +{topic.keyConcepts.length - 3} more
-              </Text>
-            </View>
-          )}
+        </View>
+
+        {/* Footer Action Button Box */}
+        <View style={[styles.actionBtn, { backgroundColor: colors.btnBg }]}>
+          <Text style={[styles.actionBtnText, { color: colors.btnText }]}>
+            Open Topic Demo ➔
+          </Text>
         </View>
       </Pressable>
     </Link>
@@ -103,24 +109,26 @@ export const TopicCard: React.FC<TopicCardProps> = ({ topic, isDarkMode }) => {
 };
 
 const styles = StyleSheet.create({
-  card: {
+  // PRIMARY CARD CONTAINER BOX STYLING
+  cardContainer: {
+    width: "100%",
     borderRadius: 16,
     padding: 16,
-    marginBottom: 30,
-    borderWidth: 3,
-    shadowColor: "#000",
+    marginVertical: 10,
+    borderWidth: 2,
+    borderStyle: "solid",
+    shadowColor: "#000000",
     shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.05,
+    shadowOpacity: 0.15,
     shadowRadius: 8,
-    elevation: 3,
-    borderColor: "#ffffff",
+    elevation: 5,
   },
   topRow: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 8,
+    marginBottom: 10,
   },
-  iconContainer: {
+  iconBox: {
     width: 44,
     height: 44,
     borderRadius: 12,
@@ -128,53 +136,67 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginRight: 12,
   },
-  icon: {
+  iconEmoji: {
     fontSize: 22,
   },
-  headerTitleContainer: {
+  headerTextGroup: {
     flex: 1,
   },
-  topicNumber: {
-    fontSize: 12,
-    fontWeight: "700",
-    textTransform: "uppercase",
-    letterSpacing: 0.5,
+  topicTag: {
+    fontSize: 11,
+    fontWeight: "800",
+    letterSpacing: 0.8,
   },
-  title: {
+  cardTitle: {
     fontSize: 18,
-    fontWeight: "700",
+    fontWeight: "800",
     marginTop: 2,
   },
-  arrowContainer: {
-    paddingLeft: 8,
+  statusBadge: {
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderRadius: 12,
   },
-  arrow: {
-    fontSize: 18,
-    fontWeight: "bold",
+  statusText: {
+    fontSize: 11,
+    fontWeight: "700",
   },
-  subtitle: {
+  subtitleText: {
     fontSize: 14,
-    fontWeight: "600",
+    fontWeight: "700",
     marginBottom: 6,
   },
-  description: {
+  descriptionText: {
     fontSize: 13,
-    lineHeight: 18,
+    lineHeight: 19,
     marginBottom: 12,
   },
-  conceptsContainer: {
+  conceptsRow: {
     flexDirection: "row",
     flexWrap: "wrap",
     gap: 6,
+    marginBottom: 14,
   },
-  conceptChip: {
-    paddingHorizontal: 8,
+  conceptTag: {
+    paddingHorizontal: 10,
     paddingVertical: 4,
-    borderRadius: 6,
+    borderRadius: 8,
+    borderWidth: 1,
   },
-  conceptText: {
+  conceptTagText: {
     fontSize: 11,
-    fontWeight: "500",
+    fontWeight: "600",
+  },
+  actionBtn: {
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    borderRadius: 10,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  actionBtnText: {
+    fontSize: 14,
+    fontWeight: "700",
   },
 });
 
