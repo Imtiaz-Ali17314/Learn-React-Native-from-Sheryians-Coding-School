@@ -9,14 +9,14 @@ export default function DashboardScreen() {
   const isDark = theme === "dark";
 
   const colors = {
-    bg: isDark ? "#0a0a12" : "#e2e8f0",
-    headerBg: isDark ? "#1a1a27" : "#ffffff",
-    headerBorder: isDark ? "#4f46e5" : "#2563eb",
+    bg: isDark ? "#0f0f17" : "#f8fafc",
+    headerBg: isDark ? "#181826" : "#ffffff",
+    headerBorder: isDark ? "#2e2e42" : "#cbd5e1",
     title: isDark ? "#f8fafc" : "#0f172a",
     subText: isDark ? "#94a3b8" : "#64748b",
-    statCard: isDark ? "#242438" : "#eff6ff",
-    statBorder: isDark ? "#4f46e5" : "#93c5fd",
-    statValue: isDark ? "#818cf8" : "#1d4ed8",
+    statCard: isDark ? "#222234" : "#f1f5f9",
+    statBorder: isDark ? "#334155" : "#e2e8f0",
+    statValue: isDark ? "#60a5fa" : "#2563eb",
     statLabel: isDark ? "#94a3b8" : "#1e40af",
   };
 
@@ -89,6 +89,7 @@ export default function DashboardScreen() {
         renderItem={({ item }) => (
           <TopicCard topic={item} isDarkMode={isDark} />
         )}
+        ItemSeparatorComponent={() => <View style={styles.cardSeparator} />}
         ListHeaderComponent={renderHeader}
         contentContainerStyle={styles.listContent}
         showsVerticalScrollIndicator={false}
@@ -105,20 +106,23 @@ const styles = StyleSheet.create({
     padding: 16,
     paddingBottom: 32,
   },
+  cardSeparator: {
+    height: 14,
+  },
   headerSection: {
     marginBottom: 12,
   },
   welcomeCard: {
     borderRadius: 16,
     padding: 18,
-    borderWidth: 2,
+    borderWidth: 1.5,
     borderStyle: "solid",
     marginBottom: 20,
     shadowColor: "#000",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.12,
-    shadowRadius: 8,
-    elevation: 4,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.06,
+    shadowRadius: 6,
+    elevation: 3,
   },
   welcomeTitle: {
     fontSize: 20,
@@ -138,7 +142,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 12,
     borderRadius: 12,
-    borderWidth: 1.5,
+    borderWidth: 1,
     alignItems: "center",
   },
   statNumber: {

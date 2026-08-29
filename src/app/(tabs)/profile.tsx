@@ -1,4 +1,5 @@
 import { TOPICS } from "@/constants/topics";
+import React from "react";
 import {
   ScrollView,
   StyleSheet,
@@ -13,12 +14,12 @@ export default function ProfileScreen() {
 
   const colors = {
     bg: isDark ? "#0f0f17" : "#f8fafc",
-    cardBg: isDark ? "#1e1e2d" : "#ffffff",
-    cardBorder: isDark ? "#2d2d3f" : "#e2e8f0",
+    cardBg: isDark ? "#181826" : "#ffffff",
+    cardBorder: isDark ? "#2e2e42" : "#cbd5e1",
     title: isDark ? "#f8fafc" : "#0f172a",
     subText: isDark ? "#94a3b8" : "#64748b",
     accent: isDark ? "#60a5fa" : "#2563eb",
-    progressBg: isDark ? "#2d2d3f" : "#e2e8f0",
+    progressBg: isDark ? "#222234" : "#e2e8f0",
     progressFill: isDark ? "#22c55e" : "#16a34a",
   };
 
@@ -42,7 +43,7 @@ export default function ProfileScreen() {
           <Text style={styles.avatarText}>🎓</Text>
         </View>
         <Text style={[styles.userName, { color: colors.title }]}>
-          React Native Student
+          Imtiaz's Student
         </Text>
         <Text style={[styles.userRole, { color: colors.subText }]}>
           React Native Beginner to Pro Roadmap
@@ -57,9 +58,7 @@ export default function ProfileScreen() {
               {progressPercent}%
             </Text>
           </View>
-          <View
-            style={[styles.progressBar, { backgroundColor: colors.progressBg }]}
-          >
+          <View style={[styles.progressBar, { backgroundColor: colors.progressBg }]}>
             <View
               style={[
                 styles.progressFill,
@@ -107,9 +106,8 @@ export default function ProfileScreen() {
           💡 Key Learning Principle
         </Text>
         <Text style={[styles.infoBody, { color: colors.subText }]}>
-          "React Native code hamesha cleanly structured aur modular hona
-          chahiye. StyleSheet.create best practice hai performance ke liye,
-          inline style sirf dynamic values ke liye use karein."
+          "React Native code hamesha cleanly structured aur modular hona chahiye.
+          StyleSheet.create best practice hai performance ke liye, inline style sirf dynamic values ke liye use karein."
         </Text>
       </View>
     </ScrollView>
@@ -128,7 +126,7 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     padding: 20,
     alignItems: "center",
-    borderWidth: 1,
+    borderWidth: 1.5,
     marginBottom: 24,
   },
   avatar: {
@@ -187,7 +185,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 14,
     borderRadius: 12,
-    borderWidth: 1,
+    borderWidth: 1.5,
     marginBottom: 10,
   },
   checkIcon: {
@@ -208,7 +206,7 @@ const styles = StyleSheet.create({
   infoCard: {
     borderRadius: 12,
     padding: 16,
-    borderWidth: 1,
+    borderWidth: 1.5,
     marginTop: 16,
   },
   infoTitle: {

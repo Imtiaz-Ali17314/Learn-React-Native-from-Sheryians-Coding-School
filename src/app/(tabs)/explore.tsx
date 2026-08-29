@@ -31,13 +31,13 @@ export default function ExploreScreen() {
   >("all");
 
   const colors = {
-    bg: isDark ? "#0a0a12" : "#e2e8f0",
-    inputBg: isDark ? "#1a1a27" : "#ffffff",
-    inputBorder: isDark ? "#4f46e5" : "#2563eb",
+    bg: isDark ? "#0f0f17" : "#f8fafc",
+    inputBg: isDark ? "#181826" : "#ffffff",
+    inputBorder: isDark ? "#2e2e42" : "#cbd5e1",
     inputText: isDark ? "#ffffff" : "#000000",
     placeholder: isDark ? "#64748b" : "#94a3b8",
-    chipBg: isDark ? "#1a1a28" : "#ffffff",
-    chipBorder: isDark ? "#373752" : "#94a3b8",
+    chipBg: isDark ? "#181826" : "#ffffff",
+    chipBorder: isDark ? "#2e2e42" : "#cbd5e1",
     chipActiveBg: "#2563eb",
     chipText: isDark ? "#94a3b8" : "#475569",
     chipActiveText: "#ffffff",
@@ -126,6 +126,7 @@ export default function ExploreScreen() {
         renderItem={({ item }) => (
           <TopicCard topic={item} isDarkMode={isDark} />
         )}
+        ItemSeparatorComponent={() => <View style={styles.cardSeparator} />}
         contentContainerStyle={styles.listContent}
         showsVerticalScrollIndicator={false}
         ListEmptyComponent={
@@ -151,7 +152,7 @@ const styles = StyleSheet.create({
   searchInput: {
     height: 48,
     borderRadius: 12,
-    borderWidth: 2,
+    borderWidth: 1.5,
     paddingHorizontal: 16,
     fontSize: 15,
   },
@@ -166,7 +167,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 14,
     paddingVertical: 8,
     borderRadius: 20,
-    borderWidth: 1.5,
+    borderWidth: 1,
   },
   categoryText: {
     fontSize: 13,
@@ -175,6 +176,9 @@ const styles = StyleSheet.create({
   listContent: {
     padding: 16,
     paddingTop: 8,
+  },
+  cardSeparator: {
+    height: 14,
   },
   emptyView: {
     padding: 40,
