@@ -1,5 +1,4 @@
 import { TOPICS } from "@/constants/topics";
-import React from "react";
 import {
   ScrollView,
   StyleSheet,
@@ -43,7 +42,7 @@ export default function ProfileScreen() {
           <Text style={styles.avatarText}>🎓</Text>
         </View>
         <Text style={[styles.userName, { color: colors.title }]}>
-          Imtiaz's Student
+          React Native Student
         </Text>
         <Text style={[styles.userRole, { color: colors.subText }]}>
           React Native Beginner to Pro Roadmap
@@ -58,7 +57,9 @@ export default function ProfileScreen() {
               {progressPercent}%
             </Text>
           </View>
-          <View style={[styles.progressBar, { backgroundColor: colors.progressBg }]}>
+          <View
+            style={[styles.progressBar, { backgroundColor: colors.progressBg }]}
+          >
             <View
               style={[
                 styles.progressFill,
@@ -106,8 +107,9 @@ export default function ProfileScreen() {
           💡 Key Learning Principle
         </Text>
         <Text style={[styles.infoBody, { color: colors.subText }]}>
-          "React Native code hamesha cleanly structured aur modular hona chahiye.
-          StyleSheet.create best practice hai performance ke liye, inline style sirf dynamic values ke liye use karein."
+          "React Native code hamesha cleanly structured aur modular hona
+          chahiye. StyleSheet.create best practice hai performance ke liye,
+          inline style sirf dynamic values ke liye use karein."
         </Text>
       </View>
     </ScrollView>
